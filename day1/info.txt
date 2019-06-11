@@ -1,0 +1,5 @@
+Day 1 - 10/06/2019.
+
+Functional Programming Basics
+
+Starting with Kotlin 
