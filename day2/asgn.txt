@@ -1,0 +1,16 @@
+create a array 5 elements -> 
+Accept 2 records from user
+-> Menu -> 1 - insert a new record 
+                ask name and marks 
+                
+           2 - list 
+            show all the records
+		   3 - remove 
+			ask name and delete that record
+			ask index  -> delete
+			index -> out of bound
+		   4 - update
+			name , marks
+				replace entry
+				
+			
