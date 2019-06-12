@@ -1,0 +1,12 @@
+class Emp
+	empno, ename, salary
+	int     String   double
+	
+class EmpManager
+{
+ArrayList 
+	c
+	r
+	u
+	d
+}
