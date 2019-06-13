@@ -1,0 +1,20 @@
+1. Test Driven Development
+	1. Plan for Testcases
+	--> Write Code 
+
+----> Business Scenario/ Requirement 
+	-> Visualize the Test cases 
+	for REST API (https://reqres.in)
+		for CRUD Operation -> visualize Test Cases
+		you are writing a mobile application to invoke this remote service
+
+
+2. Watch -> https://www.youtube.com/watch?v=4QFYTQy47yA
+
+
+3. Pick 3/4 java files -> Convert to Kotlin
+
+4. Manager -> Kotlin
+	C R U D
+	find by primary key
+	find by field name 
