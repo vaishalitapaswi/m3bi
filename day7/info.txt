@@ -51,3 +51,32 @@ In Project
 	-> add record to emp
 	show list (console)
 
+8.     fun listEmployee():List<Emp>
+    {
+        val empList:ArrayList<Emp> = ArrayList<Emp>()
+        val db = this.readableDatabase
+        val selectQuery = "SELECT  * FROM $TABLE_CONTACTS"
+        var cursor: Cursor? = null
+            try{
+                cursor = db.rawQuery(selectQuery, null)
+            }catch (e: SQLiteException) {
+                db.execSQL(selectQuery)
+                return ArrayList()
+            }
+            var userid: Int
+            var userName: String
+            var usersalary: Int
+            if (cursor.moveToFirst()) {
+                do {
+                    userid = cursor.getInt(cursor.getColumnIndex("empno"))
+                    userName = cursor.getString(cursor.getColumnIndex("ename"))
+                    usersalary = cursor.getInt(cursor.getColumnIndex("salary"))
+                    val emp= Emp(userid, userName,usersalary)
+                    empList.add(emp)
+                } while (cursor.moveToNext())
+            }
+            return empList
+        }
+}
+
+9.         db.listEmployee().forEach{println(it)}
