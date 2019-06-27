@@ -1,1 +1,53 @@
-Setup
+New Project
+	1. Basic Activity
+	2. Minimum API level
+		Api25 Android - 7.1.1
+In Project
+1. content_main.xml -> 
+	drag a button on page
+	text view -> copy and apply all the app properties
+	modify two thing - 1. id (insertbtn) 2. text (Insert)
+
+2. modify content_main.xml
+	change button to have a onClick handler
+	include  android:onClick="addHandler" in button 
+
+3. Write handler (modify MainActivity.kt)
+
+	fun addHandler(view:View){
+        println("addHanlder invoked ...")
+	    }
+
+4. Establish Database connectivity
+	create a class called DatabaseHandler.kt
+		copy code from github
+
+	modify MainActivity.kt
+	to include Emp class
+	data class Emp (val empno :Int, val ename:String, val salary:Int)
+
+5. On buttonclick 
+	insert a record 
+  	
+	fun addhelper(view:View){
+        	val db= DatabaseHandler(this.applicationContext)
+	        val e = Emp(10,"One",1111);
+	        val v = db.addEmployee(e)
+	        val view1:TextView = findViewById(R.id.txtView1) as TextView
+	        if (v == 1L){
+                   view1.setText("Inserted ...")
+       		 }
+	        else
+        	    view1.setText("Not Inserted ...")
+	        println(" inserted" +v)
+    }
+
+6. List of Emps
+	console
+7. modify app
+	to include 3 text boxes
+		empno, ename, salary
+	insert button 
+	-> add record to emp
+	show list (console)
+
