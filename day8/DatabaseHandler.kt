@@ -45,6 +45,24 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         db.close()
         return success
     }
+    fun updateEmployee(emp: Emp): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(KEY_ID, emp.empno)
+        contentValues.put(KEY_NAME, emp.ename)
+        contentValues.put(KEY_SALARY, emp.salary)
+        val str = KEY_ID + "=" + emp.empno
+        val count = db.update(TABLE_EMP,contentValues,str, null)
+        db.close()
+        return count;
+    }
+    fun deleteEmployee(where:String,whereargs:Array<String>?): Int{
+        val db = this.writableDatabase
+        val count = db.delete(TABLE_EMP,where,whereargs);
+        db.close()
+        return count;
+    }
     fun listEmployee():List<Emp>
     {
         val empList:ArrayList<Emp> = ArrayList<Emp>()

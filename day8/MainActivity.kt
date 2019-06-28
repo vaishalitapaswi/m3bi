@@ -19,6 +19,14 @@ class MainActivity : AppCompatActivity() {
         val view4:TextView = findViewById(R.id.dispText) as TextView
         view4.setText(str)
     }
+    fun deletehandler(view:View){
+        val db= DatabaseHandler(this.applicationContext)
+        val view1: TextView = findViewById(R.id.empno) as TextView
+        val empno = view1.text.toString().toInt()
+        val cnt = db.deleteEmployee("empno =" + empno,null);
+        val view4:TextView = findViewById(R.id.dispText) as TextView
+        view4.setText("Deleted $cnt")
+    }
     fun addhandler(view:View){
             val db= DatabaseHandler(this.applicationContext)
 
@@ -30,6 +38,18 @@ class MainActivity : AppCompatActivity() {
         val v = db.addEmployee(e)
 
          }
+    fun updatehandler(view:View){
+        val db= DatabaseHandler(this.applicationContext)
+
+        val view1: TextView = findViewById(R.id.empno) as TextView
+        val view2: TextView = findViewById(R.id.en) as TextView
+        val view3: TextView = findViewById(R.id.sal) as TextView
+
+        val e = Emp(view1.text.toString().toInt(), view2.text.toString(),view3.text.toString().toInt());
+        val cnt = db.updateEmployee(e);
+        val view4:TextView = findViewById(R.id.dispText) as TextView
+        view4.setText("Updated $cnt")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
