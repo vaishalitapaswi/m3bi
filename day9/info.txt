@@ -1,0 +1,66 @@
+  build gradle for app 
+  implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+  ---------------------
+  package com.example.part2.demos10
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS,AnnotationTarget.FUNCTION)
+annotation class Writer(val name:String){
+
+}
+@Writer("Vaishali")
+class BusinessLogic1(val no:Int){
+    @Writer("Simran")
+    fun m1(){
+        println("businesslogic1 -  m1 invoked ...")
+    }
+
+    fun m2(){
+    }
+}
+
+@Writer("Simran")
+class BusinessLogic2{
+    @Writer("Amans")
+    fun m1(){
+        println("businesslogic2 - m1 invoked ...")
+    }
+    fun m2(){
+    }
+}
+
+
+----------------------------
+
+package com.example.part2.demos10
+
+import kotlin.reflect.full.memberFunctions
+
+fun main() {
+    val reftoclass = BusinessLogic1::class
+    println("isfinal " + reftoclass.isFinal)
+    println("Constructors in BusinessLogic1 ")
+    reftoclass.constructors.forEach { println(it) }
+    println("Member functions in BusinessLogic1")
+    reftoclass.memberFunctions.forEach { println(it) }
+
+    val obj = BusinessLogic1(10)
+    reftoclass.memberFunctions.filter { it.name=="m1" }.first().call(obj)
+}
+
+---------------------------------------
+package com.example.part2.demos10
+
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.memberFunctions
+
+fun main() {
+    val reftoclass = BusinessLogic1::class
+    val writeranno = reftoclass.findAnnotation<Writer>()
+    println(writeranno)
+    println(writeranno?.name)
+
+}
+
+
+  
