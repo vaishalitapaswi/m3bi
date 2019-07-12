@@ -1,0 +1,12 @@
+Step1.
+	Enable Library support for Kotlin Serializer
+	Build.gradle(Project)
+		classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version“
+	Build.gradle(Module)
+		
+		implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.1“
+		
+		apply plugin: 'kotlinx-serialization'
+    
+    
+    
