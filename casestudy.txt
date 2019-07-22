@@ -1,0 +1,22 @@
+Application Idea
+
+1. UI (to accept user input and render list of users)
+	
+2. Basic logic to connect with remote servers and fetch data(Async)
+	UserProcessor
+		UserOutput create(UserInput)
+		
+	ItemsProcessor
+		UsersCollection get(pagenumber)
+3. Data classes
+	UserInput ({ "name": "morpheus","job": "leader"})
+    UserOuput ({   "name": "morpheus", "job": "leader",  "id": "632","createdAt":"2019-07-22T00:44:18.699Z")
+	User ("id": 4,"email": "eve.holt@reqres.in","first_name": "Eve", "last_name": "Holt",
+            "avatar": "https://s3.amazonaws.com//128.jpg")
+	UsersCollection ("page": 2,"per_page": 3,"total": 12,"total_pages": 4+ list of user)
+	
+4. Write logic and test cases 
+	
+	
+
+
