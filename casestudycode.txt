@@ -1,0 +1,122 @@
+1. No activity
+2. Changes build.gradle(Project)
+	add dependencies for
+	      classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+
+3. Modify build.gradle(Module app)
+apply plugin: 'kotlinx-serialization'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.1"
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.11.0'
+
+	
+4. Dataclasses 
+package com.finaldemo.logic
+import kotlinx.serialization.Serializable
+
+
+@Serializable
+public data class UserInput(val name:String, val job:String);
+@Serializable
+public  data class UserOutput(val name:String, val job:String,val id:String, val createdAt:String );
+@Serializable
+public data class User(val id: Int, val email:String, val first_name:String, val last_name:String, val avatar:String);
+@Serializable
+public data class UsersCollection(val page:Int=0, val per_page:Int=0, val total:Int=0, val total_pages:Int=0, val data:List<User>);
+
+
+5. Processing.kt
+package com.finaldemo.logic
+
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
+import kotlinx.serialization.json.JsonObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
+public class ItemsProcessor
+{
+    fun get(pagenumber:Int):UsersCollection{
+        val myURL = URL("https://reqres.in/api/users?"+pagenumber)
+
+        val httpcon = myURL.openConnection()
+        httpcon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+        httpcon.setRequestProperty("Content-Language", "en-US")
+        httpcon.setRequestProperty("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36")
+        val inps = InputStreamReader(httpcon.getInputStream())
+        val buff = BufferedReader(inps)
+        var str= ""
+        var line: String?
+        do {
+            line = buff.readLine()
+            str+= line?:""
+        } while (line != null)
+        println(str)
+        val json = Json(JsonConfiguration.Stable);
+
+        val obj = json.parse(UsersCollection.serializer(),str);
+        println("obj"  + obj)
+    return obj;
+    }
+}
+
+public class UserProcessor {
+     fun create(userInput: UserInput): UserOutput {
+         return UserOutput(name = "a", createdAt = "c", id = "a", job = "a");
+     }
+ }
+
+6. Test classes 
+package com.finaldemo.logic
+
+import org.junit.Test
+
+class ItemsProcessorTest
+{
+    @Test
+    fun createwithValidInput()
+    {
+        val page = 1
+        val iprocessor = ItemsProcessor()
+        val usercoll = iprocessor.get(page);
+        assert(usercoll.page==page && usercoll.data.size>1)
+    }
+
+    @Test
+    fun createwithInvalidInput()
+    {
+        val page = 5
+        val iprocessor = ItemsProcessor()
+        val usercoll = iprocessor.get(page);
+        assert(usercoll.page==page && usercoll.data.size==0)
+    }
+}
+
+------------------
+package com.finaldemo.logic
+
+import org.junit.Test
+
+
+class UserProcessorTest
+{
+    @Test
+    fun createwithCorrectInput()
+    {
+        val ui :UserInput =  UserInput(name="Vaishali",job="Trainer")
+        val userprocessor = UserProcessor()
+        val uo = userprocessor.create(ui)
+        assert(ui.name.equals(uo.name) && ui.job.equals(uo.job))
+    }
+
+    @Test
+    fun createwithEmptyInput()
+    {
+        val ui :UserInput =  UserInput(name="",job="")
+        val userprocessor = UserProcessor()
+        val uo = userprocessor.create(ui)
+        assert(uo.name.length==0 && uo.job.length==0)
+    }
+} 
+ 
